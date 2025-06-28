@@ -69,3 +69,23 @@ instance/
 
 # Windows
 Thumbs.db
+
+# SQLite database files
+*.db
+*.sqlite3
+
+# Coverage HTML output
+dist/htmlcov/
+coverage_html_report/
+
+# Editor swap/backup files
+*~
+*.swp
+*.bak
+
+# macOS Finder files
+**/.DS_Store
+
+# Python virtual environments
+venv/
+.venv/

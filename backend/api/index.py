@@ -1,8 +1,11 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from models import db, Blog
 from datetime import datetime
-import os
 import uuid
 from dotenv import load_dotenv
 
@@ -10,10 +13,12 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Configure database
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
+# Load .env from backend root
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://neondb_owner:npg_aRtjSdfKh5w0@ep-wispy-voice-a1jsog9k-pooler.ap-southeast-1.aws.neon.tech/Blogeditor?sslmode=require')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER', './uploads')
+# Store uploads in backend/uploads
+app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER', os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')))
 
 # Create the upload folder if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
