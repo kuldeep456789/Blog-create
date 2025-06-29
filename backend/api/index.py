@@ -142,6 +142,10 @@ def uploaded_file(filename):
     """Serve uploaded files"""
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.route('/')
+def health_check():
+    return 'Backend is running!'
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create tables if they don't exist
